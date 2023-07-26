@@ -1,0 +1,63 @@
+{% extends "homeDecor.html"%}
+
+{% block "content" %}
+<script type="text/javascript">
+   function increment(data) {
+      var result = document.getElementById(data);
+      var num = parseInt(result.value);
+      if (num < 5) {
+         num += 1
+      }
+      result.value = num;
+   }
+   function decrement(data) {
+      var result = document.getElementById(data);
+      var num = parseInt(result.value);
+      if (num > 0) {
+         num -= 1
+      }
+      result.value = num;
+   }
+</script>
+{% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-success alert-dismissible">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      {{ message }}
+    </div>
+    {% endfor %}
+{% endif %}
+<h class="cart"> Shopping Cart</h>
+<table class="table">
+   <tr>
+      <th> </th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Total</th>
+      
+   </tr>
+   {% for it in my_item %}
+   <tr>
+         <form method="post">
+         {% csrf_token %}
+         <input type="hidden" name="cart_id" value="{{it.id}}"/>
+         <td><img src="{{it.item.item_image1.url}}" style="height: 100px;width: 100px"></td>
+         <td>{{it.item.item_name}}</td>
+         <td>{{it.item.item_price}}</td>
+         <td>
+            <button type="button" class="button btn-warning button1" onclick="decrement('qyt{{it.item.id}}')">-</button>
+            <input class="box text-center" type="text" id="qyt{{it.item.id}}" name="qyt" value="{{it.qyt}}" readonly />  
+            <button type="button" class="button btn-warning button1" onclick="increment('qyt{{it.item.id}}')">+</button>
+         </td>
+         <td>{% widthratio it.item.item_price 1 it.qyt %}</td>
+         <td><button type="submit" class="button btn-warning Add" name="action" value="update">update</button></td>
+         <td><button type="submit" class="button btn-warning Crossbutton" name="action" value="delete">X</button></td>
+         </form>
+   </tr>
+   {% endfor %}
+</table>
+<h4>Total : Rs.{{request.session.total}}</h4>
+<h3><a href="/make_payment" class="payment">Place Order</a></h3>
+{% endblock %}
+

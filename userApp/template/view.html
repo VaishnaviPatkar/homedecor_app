@@ -1,0 +1,82 @@
+{% extends "homeDecor.html"%}
+pyth
+{% block "content" %}
+<form method="post" action="/addToCart">
+    {% csrf_token %}
+    <div class="container">
+        {%for item in items%}
+        <div class="panel panel-primary d-flex flex-row justify-content-center">
+            <div id="carouselExampleIndicators" class="carousel slide col-sm-4 m-4 carousel-dark">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carou selExampleIndicators" data-bs-slide-to="0"
+                        class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                        aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                        aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner ">
+                    <div class="carousel-item active">
+                        <img src="{{item.item_image1.url}}" class="d-block w-100" alt="loading">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{{item.item_image2.url}}" class="d-block w-100" alt="loading">
+                    </div>
+                    <div class="carousel-item">
+
+                        <img src="{{item.item_image3.url}}" class="d-block w-100" alt="loading">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+            <div class="d-flex flex-column justify-content-between m-5" style="height: 500px;">
+                <div>
+                    <b><input type="hidden" name="I_id" value="{{item.id}}" />
+                        {{item.item_name}}
+                    </b>
+                </div>
+                <div>
+                    <div>Price</div>
+                    <div> <b>Rs.{{item.item_price}}</b></div>
+                </div>
+                <div>
+                    <div>Material </div>
+                    <div><b>{{item.item_material}}</b></div>
+                </div>
+                <div>
+                    <div>Colour </div>
+                    <div><b>{{item.item_colour}}</b></div>
+                </div>
+                <div>
+                    <div>Brand</div>
+                    <div><b>{{item.item_brand}}</b></div>
+                </div>
+                <div>
+                    <div>Dimension </div>
+                    <div><b>{{item.item_dimension}}</b></div>
+                </div>
+                <div>Quantity
+                    <select class="form-control " name="qyt" style="width: 100px;">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
+                <div><button class="button btn-success" type="submit">Add to cart</button> </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</form>
+{% endblock %}

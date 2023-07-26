@@ -1,0 +1,21 @@
+{% extends "homeDecor.html"%}
+
+{% block "content" %}
+<div class="container">
+    <div class="row">
+        {%for item in items%}
+        <div class="col-sm-4">
+            <div class="panel panel-primary image_margin">
+                <div class="panel-body image_border">
+                    <a href="/view_item/{{item.id}}">
+                    <img src="{{item.item_image1.url}}" class="img-responsive img" alt="Image">
+                    </a>
+                </div>
+                <div class="panel-heading pt-4">{{item.item_name}}</div>
+                <div><b> Rs. {{item.item_price}} </b></div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
